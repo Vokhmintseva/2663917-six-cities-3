@@ -3,7 +3,7 @@ import {fetchOffersAction, fetchOfferAction, fetchOffersNearbyAction, fetchComme
 import {NameSpace} from '../../Const';
 import {OffersData} from '../../types/state';
 import {StatusCodes} from 'http-status-codes';
-import {Offer} from '../../types/offer';
+import { OfferDetailed } from '../../types/offer-detailed';
 
 const initialState: OffersData = {
   offers: [],
@@ -23,7 +23,7 @@ export const offersData = createSlice({
     setResourceNotFound: (state, action: PayloadAction<boolean>) => {
       state.isOfferNotFound = action.payload;
     },
-    changeFavoriteOfferStatus: (state, action: PayloadAction<Offer>) => {
+    changeFavoriteOfferStatus: (state, action: PayloadAction<OfferDetailed>) => {
       const index = state.offers.findIndex((o) => o.id === action.payload.id);
       state.offers[index] = action.payload;
 

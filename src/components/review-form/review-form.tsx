@@ -45,7 +45,7 @@ function ReviewForm({offerId}: ReviewFormProps): JSX.Element {
   const isFormDisabled = isCommentSaving;
 
   return (
-    <form className="reviews__form form" action="#" method="post" onSubmit={saveComment}>
+    <form className="reviews__form form" action="#" method="post" onSubmit={(evt) => void saveComment(evt)}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio" onChange={reviewFormFieldChangeHandle} disabled={isFormDisabled} checked={reviewFormData.rating === 5} />

@@ -1,4 +1,4 @@
-import {makeFakeOffer, makeFakeComment} from '../../utils/mocks';
+import {makeFakeOffer, makeFakeOfferDetailed, makeFakeComment} from '../../utils/mocks';
 import {fetchOffersAction, fetchOfferAction, fetchOffersNearbyAction, fetchCommentsAction, fetchFavoritesAction, saveCommentAction, logoutAction} from '../api-actions';
 import {offersData, setResourceNotFound, changeFavoriteOfferStatus} from './offers-data';
 
@@ -13,7 +13,8 @@ describe('OffersData Slice', () => {
         comments: [],
         favorites: [],
         isOfferNotFound: false,
-        isDataLoading: false
+        isDataLoading: false,
+        isCommentSaving: false
       };
 
       const result = offersData.reducer(expectedState, emptyAction);
@@ -30,7 +31,8 @@ describe('OffersData Slice', () => {
         comments: [],
         favorites: [],
         isOfferNotFound: false,
-        isDataLoading: false
+        isDataLoading: false,
+        isCommentSaving: false
       };
 
       const result = offersData.reducer(undefined, emptyAction);
@@ -46,7 +48,8 @@ describe('OffersData Slice', () => {
         comments: [],
         favorites: [],
         isOfferNotFound: true,
-        isDataLoading: false
+        isDataLoading: false,
+        isCommentSaving: false
       };
 
       const result = offersData.reducer(undefined, setResourceNotFound(true));
@@ -62,7 +65,8 @@ describe('OffersData Slice', () => {
         comments: [],
         favorites: [],
         isOfferNotFound: true,
-        isDataLoading: false
+        isDataLoading: false,
+        isCommentSaving: false
       };
 
       const expectedState = {
@@ -77,8 +81,7 @@ describe('OffersData Slice', () => {
 
     it('should update offer and add to favorites with "changeFavoriteOfferStatus" action', () => {
       const mockOffer = makeFakeOffer();
-      mockOffer.isFavorite = false;
-      const updatedOffer = { ...mockOffer, isFavorite: true };
+      const updatedOfferDetailed = { ...makeFakeOfferDetailed(), id: mockOffer.id, isFavorite: true };
 
       const initialState = {
         offers: [mockOffer],
@@ -87,20 +90,21 @@ describe('OffersData Slice', () => {
         comments: [],
         favorites: [],
         isOfferNotFound: false,
-        isDataLoading: false
+        isDataLoading: false,
+        isCommentSaving: false
       };
 
-      const result = offersData.reducer(initialState, changeFavoriteOfferStatus(updatedOffer));
+      const result = offersData.reducer(initialState, changeFavoriteOfferStatus(updatedOfferDetailed));
 
-      expect(result.offers[0]).toEqual(updatedOffer);
+      expect(result.offers[0].id).toEqual(updatedOfferDetailed.id);
+      expect(result.offers[0].isFavorite).toBe(true);
       expect(result.favorites).toHaveLength(1);
-      expect(result.favorites[0]).toEqual(updatedOffer);
+      expect(result.favorites[0].id).toEqual(updatedOfferDetailed.id);
     });
 
     it('should update offer and remove from favorites with "changeFavoriteOfferStatus" action', () => {
       const mockOffer = makeFakeOffer();
-      mockOffer.isFavorite = true;
-      const updatedOffer = { ...mockOffer, isFavorite: false };
+      const updatedOfferDetailed = { ...makeFakeOfferDetailed(), id: mockOffer.id, isFavorite: false };
 
       const initialState = {
         offers: [mockOffer],
@@ -109,57 +113,64 @@ describe('OffersData Slice', () => {
         comments: [],
         favorites: [mockOffer],
         isOfferNotFound: false,
-        isDataLoading: false
+        isDataLoading: false,
+        isCommentSaving: false
       };
 
-      const result = offersData.reducer(initialState, changeFavoriteOfferStatus(updatedOffer));
+      const result = offersData.reducer(initialState, changeFavoriteOfferStatus(updatedOfferDetailed));
 
-      expect(result.offers[0]).toEqual(updatedOffer);
+      expect(result.offers[0].id).toEqual(updatedOfferDetailed.id);
+      expect(result.offers[0].isFavorite).toBe(false);
       expect(result.favorites).toHaveLength(0);
     });
 
     it('should update offerDetailed and offersNearby when setting isFavorite to true with "changeFavoriteOfferStatus" action', () => {
       const mockOffer = makeFakeOffer();
-      mockOffer.isFavorite = false;
-      const updatedOffer = { ...mockOffer, isFavorite: true };
+      const mockOfferDetailed = makeFakeOfferDetailed();
+      const updatedOffer = { ...mockOfferDetailed, id: mockOffer.id, isFavorite: true };
 
       const initialState = {
         offers: [mockOffer],
-        offerDetailed: mockOffer,
+        offerDetailed: { ...mockOfferDetailed, id: mockOffer.id },
         offersNearby: [mockOffer],
         comments: [],
         favorites: [],
         isOfferNotFound: false,
-        isDataLoading: false
+        isDataLoading: false,
+        isCommentSaving: false
       };
 
       const result = offersData.reducer(initialState, changeFavoriteOfferStatus(updatedOffer));
 
-      expect(result.offers[0]).toEqual(updatedOffer);
+      expect(result.offers[0].id).toEqual(updatedOffer.id);
+      expect(result.offers[0].isFavorite).toBe(true);
       expect(result.offerDetailed).toEqual(updatedOffer);
-      expect(result.offersNearby[0]).toEqual(updatedOffer);
+      expect(result.offersNearby[0].id).toEqual(updatedOffer.id);
+      expect(result.offersNearby[0].isFavorite).toBe(true);
       expect(result.favorites).toHaveLength(1);
-      expect(result.favorites[0]).toEqual(updatedOffer);
+      expect(result.favorites[0].id).toEqual(updatedOffer.id);
     });
 
     it('should update offerDetailed and offersNearby when setting isFavorite to false with "changeFavoriteOfferStatus" action', () => {
       const mockOffer = makeFakeOffer();
-      mockOffer.isFavorite = true;
-      const updatedOffer = { ...mockOffer, isFavorite: false };
+      const mockOfferDetailed = makeFakeOfferDetailed();
+      const updatedOffer = { ...mockOfferDetailed, id: mockOffer.id, isFavorite: false };
 
       const initialState = {
         offers: [mockOffer],
-        offerDetailed: mockOffer,
+        offerDetailed: { ...mockOfferDetailed, id: mockOffer.id },
         offersNearby: [mockOffer],
         comments: [],
         favorites: [mockOffer],
         isOfferNotFound: false,
-        isDataLoading: false
+        isDataLoading: false,
+        isCommentSaving: false
       };
 
       const result = offersData.reducer(initialState, changeFavoriteOfferStatus(updatedOffer));
 
-      expect(result.offers[0]).toEqual(updatedOffer);
+      expect(result.offers[0].id).toEqual(updatedOffer.id);
+      expect(result.offers[0].isFavorite).toBe(false);
       expect(result.offerDetailed).toEqual(updatedOffer);
       expect(result.offersNearby[0]).toEqual(updatedOffer);
       expect(result.favorites).toHaveLength(0);
@@ -175,7 +186,8 @@ describe('OffersData Slice', () => {
         comments: [],
         favorites: [],
         isOfferNotFound: false,
-        isDataLoading: true
+        isDataLoading: true,
+        isCommentSaving: false
       };
 
       const result = offersData.reducer(undefined, fetchOffersAction.pending);
@@ -192,7 +204,8 @@ describe('OffersData Slice', () => {
         comments: [],
         favorites: [],
         isOfferNotFound: false,
-        isDataLoading: false
+        isDataLoading: false,
+        isCommentSaving: false
       };
 
       const result = offersData.reducer(
@@ -211,7 +224,8 @@ describe('OffersData Slice', () => {
         comments: [],
         favorites: [],
         isOfferNotFound: false,
-        isDataLoading: false
+        isDataLoading: false,
+        isCommentSaving: false
       };
 
       const result = offersData.reducer(undefined, fetchOffersAction.rejected);
@@ -222,14 +236,14 @@ describe('OffersData Slice', () => {
 
   describe('fetchOfferAction', () => {
     it('should set "offerDetailed" with "fetchOfferAction.fulfilled"', () => {
-      const mockOffer = makeFakeOffer();
+      const mockOfferDetailed = makeFakeOfferDetailed();
 
       const result = offersData.reducer(
         undefined,
-        fetchOfferAction.fulfilled(mockOffer, '', '')
+        fetchOfferAction.fulfilled(mockOfferDetailed, '', '')
       );
 
-      expect(result.offerDetailed).toEqual(mockOffer);
+      expect(result.offerDetailed).toEqual(mockOfferDetailed);
     });
 
     it('should set "isOfferNotFound" to "true" with "fetchOfferAction.rejected" when status is 404', () => {
@@ -253,7 +267,8 @@ describe('OffersData Slice', () => {
         comments: [],
         favorites: [],
         isOfferNotFound: false,
-        isDataLoading: false
+        isDataLoading: false,
+        isCommentSaving: false
       };
 
       const result = offersData.reducer(
@@ -311,7 +326,8 @@ describe('OffersData Slice', () => {
         comments: [],
         favorites: [],
         isOfferNotFound: false,
-        isDataLoading: false
+        isDataLoading: false,
+        isCommentSaving: false
       };
 
       const favoriteOffersFromServer = [offer1];
@@ -329,6 +345,7 @@ describe('OffersData Slice', () => {
     it('should update "isFavorite" in offerDetailed with "fetchFavoritesAction.fulfilled"', () => {
       const offer1 = makeFakeOffer();
       const offer2 = makeFakeOffer();
+      const offer2Detailed = { ...makeFakeOfferDetailed(), id: offer2.id };
       offer1.isFavorite = true;
 
       const initialState = {
@@ -336,12 +353,13 @@ describe('OffersData Slice', () => {
           { ...offer1, isFavorite: false },
           { ...offer2, isFavorite: true }
         ],
-        offerDetailed: { ...offer2, isFavorite: true },
+        offerDetailed: { ...offer2Detailed, isFavorite: true },
         offersNearby: [],
         comments: [],
         favorites: [offer2],
         isOfferNotFound: false,
-        isDataLoading: false
+        isDataLoading: false,
+        isCommentSaving: false
       };
 
       const favoriteOffersFromServer = [offer1];
@@ -356,6 +374,7 @@ describe('OffersData Slice', () => {
 
     it('should update "isFavorite" in offersNearby with "fetchFavoritesAction.fulfilled"', () => {
       const offer1 = makeFakeOffer();
+      const offer1Detailed = { ...makeFakeOfferDetailed(), id: offer1.id };
       const offer2 = makeFakeOffer();
       const offer3 = makeFakeOffer();
       offer2.isFavorite = true;
@@ -366,7 +385,7 @@ describe('OffersData Slice', () => {
           { ...offer2, isFavorite: false },
           { ...offer3, isFavorite: false }
         ],
-        offerDetailed: { ...offer1, isFavorite: false },
+        offerDetailed: { ...offer1Detailed, isFavorite: false },
         offersNearby: [
           { ...offer2, isFavorite: false },
           { ...offer3, isFavorite: false }
@@ -374,7 +393,8 @@ describe('OffersData Slice', () => {
         comments: [],
         favorites: [],
         isOfferNotFound: false,
-        isDataLoading: false
+        isDataLoading: false,
+        isCommentSaving: false
       };
 
       const favoriteOffersFromServer = [offer2];
@@ -392,6 +412,7 @@ describe('OffersData Slice', () => {
       const offer1 = makeFakeOffer();
       const offer2 = makeFakeOffer();
       const offer3 = makeFakeOffer();
+      const offer3Detailed = { ...makeFakeOfferDetailed(), id: offer3.id };
       const offer4 = makeFakeOffer();
       offer2.isFavorite = true;
       offer3.isFavorite = true;
@@ -403,7 +424,7 @@ describe('OffersData Slice', () => {
           { ...offer3, isFavorite: true },
           { ...offer4, isFavorite: false }
         ],
-        offerDetailed: { ...offer3, isFavorite: true },
+        offerDetailed: { ...offer3Detailed, isFavorite: true },
         offersNearby: [
           { ...offer1, isFavorite: true },
           { ...offer4, isFavorite: false }
@@ -411,7 +432,8 @@ describe('OffersData Slice', () => {
         comments: [],
         favorites: [offer1, offer3],
         isOfferNotFound: false,
-        isDataLoading: false
+        isDataLoading: false,
+        isCommentSaving: false
       };
 
       const favoriteOffersFromServer = [offer2, offer3];
@@ -433,45 +455,44 @@ describe('OffersData Slice', () => {
   });
 
   describe('saveCommentAction', () => {
-    it('should add comment to "comments" with "saveCommentAction.fulfilled"', () => {
-      const existingComment = makeFakeComment();
-      const newComment = makeFakeComment();
-
+    it('should set "isCommentSaving" to false with "saveCommentAction.fulfilled"', () => {
       const initialState = {
         offers: [],
         offerDetailed: undefined,
         offersNearby: [],
-        comments: [existingComment],
+        comments: [],
         favorites: [],
         isOfferNotFound: false,
-        isDataLoading: false
+        isDataLoading: false,
+        isCommentSaving: true
       };
 
       const result = offersData.reducer(
         initialState,
-        saveCommentAction.fulfilled(newComment, '', { offerId: '1', comment: '', rating: 5 })
+        saveCommentAction.fulfilled(makeFakeComment(), '', { offerId: '1', comment: '', rating: 5 })
       );
 
-      expect(result.comments).toHaveLength(2);
-      expect(result.comments[1]).toEqual(newComment);
+      expect(result.isCommentSaving).toBe(false);
     });
   });
 
   describe('logoutAction', () => {
     it('should clear all favorites and set isFavorite to false with "logoutAction.fulfilled"', () => {
       const offer1 = makeFakeOffer();
+      const offer1Detailed = { ...makeFakeOfferDetailed(), id: offer1.id };
       const offer2 = makeFakeOffer();
       offer1.isFavorite = true;
       offer2.isFavorite = true;
 
       const initialState = {
         offers: [offer1, offer2],
-        offerDetailed: offer1,
+        offerDetailed: { ...offer1Detailed, isFavorite: offer1.isFavorite },
         offersNearby: [offer2],
         comments: [],
         favorites: [offer1, offer2],
         isOfferNotFound: false,
-        isDataLoading: false
+        isDataLoading: false,
+        isCommentSaving: false
       };
 
       const result = offersData.reducer(initialState, logoutAction.fulfilled);

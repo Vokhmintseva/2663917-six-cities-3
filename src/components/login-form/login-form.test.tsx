@@ -29,7 +29,7 @@ describe('Component: LoginForm', () => {
   });
 
   it('should dispatch loginAction when form is submitted', async () => {
-    const fakeUser = { email: 'test@test.ru', password: '123456' };
+    const fakeUser = { email: 'test@test.ru', password: 'a1b2c3' };
     const fakeServerReply = makeFakeUserData();
 
     const { withStoreComponent, mockStore, mockAxiosAdapter } = withStore(
@@ -88,7 +88,7 @@ describe('Component: LoginForm', () => {
 
   it('should render correctly when user enters login and password', async () => {
     const expectedEmail = 'test@test.ru';
-    const expectedPassword = '123456';
+    const expectedPassword = 'a1b2c3';
 
     const { withStoreComponent } = withStore(
       <LoginForm />,

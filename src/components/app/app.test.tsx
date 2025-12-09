@@ -48,6 +48,7 @@ describe('Component: App', () => {
           favorites: [],
           isOfferNotFound: false,
           isDataLoading: true,
+          isCommentSaving: false
         },
         [NameSpace.User]: {
           authorizationStatus: AuthorizationStatus.NoAuth,
@@ -78,6 +79,7 @@ describe('Component: App', () => {
           favorites: [],
           isOfferNotFound: false,
           isDataLoading: false,
+          isCommentSaving: false
         },
         [NameSpace.User]: {
           authorizationStatus: AuthorizationStatus.NoAuth,
@@ -108,6 +110,7 @@ describe('Component: App', () => {
           favorites: [],
           isOfferNotFound: false,
           isDataLoading: false,
+          isCommentSaving: false
         },
         [NameSpace.User]: {
           authorizationStatus: AuthorizationStatus.NoAuth,
@@ -138,6 +141,7 @@ describe('Component: App', () => {
           favorites: [],
           isOfferNotFound: false,
           isDataLoading: false,
+          isCommentSaving: false
         },
         [NameSpace.User]: {
           authorizationStatus: AuthorizationStatus.Auth,
@@ -168,6 +172,7 @@ describe('Component: App', () => {
           favorites: [],
           isOfferNotFound: false,
           isDataLoading: false,
+          isCommentSaving: false
         },
         [NameSpace.User]: {
           authorizationStatus: AuthorizationStatus.NoAuth,
@@ -199,6 +204,7 @@ describe('Component: App', () => {
           favorites: [],
           isOfferNotFound: false,
           isDataLoading: false,
+          isCommentSaving: false
         },
         [NameSpace.User]: {
           authorizationStatus: AuthorizationStatus.NoAuth,
@@ -229,6 +235,7 @@ describe('Component: App', () => {
           favorites: [],
           isOfferNotFound: false,
           isDataLoading: false,
+          isCommentSaving: false
         },
         [NameSpace.User]: {
           authorizationStatus: AuthorizationStatus.Auth,
@@ -263,6 +270,7 @@ describe('Component: App', () => {
           favorites: [],
           isOfferNotFound: false,
           isDataLoading: false,
+          isCommentSaving: false
         },
         [NameSpace.User]: {
           authorizationStatus: AuthorizationStatus.NoAuth,
