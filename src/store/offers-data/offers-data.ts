@@ -116,7 +116,8 @@ export const offersData = createSlice({
       .addCase(saveCommentAction.pending, (state) => {
         state.isCommentSaving = true;
       })
-      .addCase(saveCommentAction.fulfilled, (state) => {
+      .addCase(saveCommentAction.fulfilled, (state, action) => {
+        state.comments.push(action.payload);
         state.isCommentSaving = false;
       })
       .addCase(saveCommentAction.rejected, (state) => {

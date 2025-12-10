@@ -4,7 +4,7 @@ import ReviewForm from './review-form';
 import { withBrowserRouter, withStore } from '../../utils/mock-component';
 import { APIRoute, AuthorizationStatus, NameSpace } from '../../Const';
 import { extractActionsTypes, makeFakeComment } from '../../utils/mocks';
-import { saveCommentAction, fetchCommentsAction } from '../../store/api-actions';
+import { saveCommentAction } from '../../store/api-actions';
 
 const defaultOffersDataState = {
   offers: [],
@@ -170,8 +170,6 @@ describe('Component: ReviewForm', () => {
     expect(actions).toEqual([
       saveCommentAction.pending.type,
       saveCommentAction.fulfilled.type,
-      fetchCommentsAction.pending.type,
-      fetchCommentsAction.fulfilled.type,
     ]);
   });
 });

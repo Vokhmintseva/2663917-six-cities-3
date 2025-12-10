@@ -456,7 +456,7 @@ describe('OffersData Slice', () => {
   });
 
   describe('saveCommentAction', () => {
-    it('should set "isCommentSaving" to false with "saveCommentAction.fulfilled"', () => {
+    it('should add comment to state and set "isCommentSaving" to false with "saveCommentAction.fulfilled"', () => {
       const initialState = {
         offers: [],
         offerDetailed: undefined,
@@ -468,12 +468,16 @@ describe('OffersData Slice', () => {
         isCommentSaving: true
       };
 
+      const newComment = makeFakeComment();
+
       const result = offersData.reducer(
         initialState,
-        saveCommentAction.fulfilled(makeFakeComment(), '', { offerId: '1', comment: '', rating: 5 })
+        saveCommentAction.fulfilled(newComment, '', { offerId: '1', comment: '', rating: 5 })
       );
 
       expect(result.isCommentSaving).toBe(false);
+      expect(result.comments).toHaveLength(1);
+      expect(result.comments[0]).toEqual(newComment);
     });
   });
 

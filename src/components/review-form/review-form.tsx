@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { saveCommentAction, fetchCommentsAction } from '../../store/api-actions';
+import { saveCommentAction } from '../../store/api-actions';
 import { getIsCommentSaving } from '../../store/offers-data/selectors';
 
 type ReviewFormProps = {
@@ -30,7 +30,6 @@ function ReviewForm({offerId}: ReviewFormProps): JSX.Element {
         comment: reviewFormData.review,
         rating: Number(reviewFormData.rating)
       })).unwrap();
-      dispatch(fetchCommentsAction(offerId));
       setReviewFormData({
         rating: 0,
         review: ''
