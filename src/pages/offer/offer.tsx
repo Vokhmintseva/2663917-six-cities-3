@@ -88,7 +88,7 @@ function Offer(): JSX.Element | null {
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {offerDetailed.images.map((img) => (
+              {offerDetailed.images.slice(0, 6).map((img) => (
                 <div className="offer__image-wrapper" key={img}>
                   <img className="offer__image" src={img} alt="Photo studio" />
                 </div>
@@ -180,7 +180,12 @@ function Offer(): JSX.Element | null {
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <OffersList offers={offersNearby.slice(0, 3)} onActiveChange={() => {}}/>
+            <OffersList
+              offers={offersNearby.slice(0, 3)}
+              onActiveChange={() => {}}
+              className="near-places__list places__list"
+              cardVariant="near-places"
+            />
           </section>
         </div>
       </main>
