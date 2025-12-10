@@ -19,24 +19,25 @@ function ReviewForm({offerId}: ReviewFormProps): JSX.Element {
 
   const reviewFormFieldChangeHandle = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const {name, value} = event.target;
-    if (name === 'review' && value.length > maxReviewLength) {
-      return;
-    }
-    setReviewFormData({...reviewFormData, [name]: value});
+    setReviewFormData({...reviewFormData, [name]: name === 'rating' ? Number(value) : value});
   };
 
   const saveComment = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    await dispatch(saveCommentAction({
-      offerId: offerId,
-      comment: reviewFormData.review,
-      rating: Number(reviewFormData.rating)
-    })).unwrap();
-    dispatch(fetchCommentsAction(offerId));
-    setReviewFormData({
-      rating: 0,
-      review: ''
-    });
+    try {
+      await dispatch(saveCommentAction({
+        offerId: offerId,
+        comment: reviewFormData.review,
+        rating: Number(reviewFormData.rating)
+      })).unwrap();
+      dispatch(fetchCommentsAction(offerId));
+      setReviewFormData({
+        rating: 0,
+        review: ''
+      });
+    } catch {
+      // Ошибка обработается через processErrorHandle в HTTP interceptor
+    }
   };
 
   const isFormValid = reviewFormData.review.length >= minReviewLength
@@ -76,8 +77,8 @@ function ReviewForm({offerId}: ReviewFormProps): JSX.Element {
           </svg>
         </label>
 
-        <input className="form__rating-input visually-hidden" name="rating" value="1" id="1-star" type="radio" onChange={reviewFormFieldChangeHandle} disabled={isFormDisabled} checked={reviewFormData.rating === 1} />
-        <label htmlFor="1-star" className="reviews__rating-label form__rating-label" title="terribly">
+        <input className="form__rating-input visually-hidden" name="rating" value="1" id="1-stars" type="radio" onChange={reviewFormFieldChangeHandle} disabled={isFormDisabled} checked={reviewFormData.rating === 1} />
+        <label htmlFor="1-stars" className="reviews__rating-label form__rating-label" title="terribly">
           <svg className="form__star-image" width="37" height="33">
             <use xlinkHref="#icon-star"></use>
           </svg>

@@ -42,7 +42,7 @@ describe('Component: ReviewForm', () => {
     expect(container.querySelector('[id="4-stars"]')).toBeInTheDocument();
     expect(container.querySelector('[id="3-stars"]')).toBeInTheDocument();
     expect(container.querySelector('[id="2-stars"]')).toBeInTheDocument();
-    expect(container.querySelector('[id="1-star"]')).toBeInTheDocument();
+    expect(container.querySelector('[id="1-stars"]')).toBeInTheDocument();
   });
 
   it('should render correctly when user types review text', async () => {
