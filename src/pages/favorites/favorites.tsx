@@ -1,14 +1,21 @@
 import {Helmet} from 'react-helmet-async';
 import FavoritesList from '../../components/favorites-list/favorites-list';
 import {Link} from 'react-router-dom';
-import {useAppSelector} from '../../hooks';
+import {useAppSelector, useAppDispatch} from '../../hooks';
 import {getFavorites} from '../../store/offers-data/selectors';
 import HeaderUserProfile from '../../components/header-user-profile/header-user-profile';
 import FavoritesEmpty from '../favorites-empty/favorites-empty';
+import {fetchFavoritesAction} from '../../store/api-actions';
+import {useEffect} from 'react';
 
 function Favorites(): JSX.Element {
   const favoriteOffers = useAppSelector(getFavorites);
+  const dispatch = useAppDispatch();
   const isEmpty = favoriteOffers.length === 0;
+
+  useEffect(() => {
+    dispatch(fetchFavoritesAction());
+  }, [dispatch]);
 
   return (
     <div className={`page${isEmpty ? ' page--favorites-empty' : ''}`}>
