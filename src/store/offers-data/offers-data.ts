@@ -50,6 +50,27 @@ export const offersData = createSlice({
       })
       .addCase(fetchOffersAction.fulfilled, (state, action) => {
         state.offers = action.payload;
+
+        const favoritesFromOffers = action.payload.filter((offer) => offer.isFavorite);
+        const favoriteIds = new Set(favoritesFromOffers.map((fav) => fav.id));
+
+        // синхронизируем текущее подробное предложение
+        if (state.offerDetailed) {
+          state.offerDetailed = {
+            ...state.offerDetailed,
+            isFavorite: favoriteIds.has(state.offerDetailed.id),
+          };
+        }
+
+        // синхронизируем предложения поблизости
+        state.offersNearby = state.offersNearby.map((offer) => ({
+          ...offer,
+          isFavorite: favoriteIds.has(offer.id),
+        }));
+
+        // сохраняем favorites из ответа /offers
+        state.favorites = favoritesFromOffers;
+
         state.isDataLoading = false;
       })
       .addCase(fetchOffersAction.rejected, (state) => {

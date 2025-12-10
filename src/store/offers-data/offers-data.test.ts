@@ -197,12 +197,13 @@ describe('OffersData Slice', () => {
 
     it('should set "offers" to array with offers, "isDataLoading" to false with "fetchOffersAction.fulfilled"', () => {
       const mockOffers = [makeFakeOffer(), makeFakeOffer()];
+      const expectedFavorites = mockOffers.filter((offer) => offer.isFavorite);
       const expectedState = {
         offers: mockOffers,
         offerDetailed: undefined,
         offersNearby: [],
         comments: [],
-        favorites: [],
+        favorites: expectedFavorites,
         isOfferNotFound: false,
         isDataLoading: false,
         isCommentSaving: false
