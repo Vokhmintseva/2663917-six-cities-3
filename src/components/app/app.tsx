@@ -34,7 +34,7 @@ function App({cities}: AppProps): JSX.Element {
           />
           <Route
             path={AppRoute.Login}
-            element={<Login />}
+            element={<Login cities={cities} />}
           />
           <Route
             path={AppRoute.Favorites}

@@ -1,8 +1,26 @@
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import LoginForm from '../../components/login-form/login-form';
+import { useAppDispatch } from '../../hooks';
+import { changeCity } from '../../store/app-process/app-process';
+import { City } from '../../types/city';
 
-function Login(): JSX.Element {
+type LoginProps = {
+  cities: City[];
+}
+
+function Login({cities}: LoginProps): JSX.Element {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const randomIndex = Math.floor(Math.random() * cities.length);
+  const randomCity = cities[randomIndex];
+
+  const handleCityClick = (evt: React.MouseEvent<HTMLAnchorElement>) => {
+    evt.preventDefault();
+    dispatch(changeCity(randomCity.name));
+    navigate('/');
+  };
+
   return (
     <div className="page page--gray page--login">
       <Helmet>
@@ -28,9 +46,9 @@ function Login(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <Link className="locations__item-link" to="#">
-                <span>Amsterdam</span>
-              </Link>
+              <a className="locations__item-link" href="#" onClick={handleCityClick}>
+                <span>{randomCity.name}</span>
+              </a>
             </div>
           </section>
         </div>
