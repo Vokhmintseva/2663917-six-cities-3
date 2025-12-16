@@ -108,7 +108,7 @@ describe('Component: CitiesList', () => {
 
     const cityItems = container.querySelectorAll('.locations__item-link');
 
-    expect(cityItems).toHaveLength(mockCities.length * 2);
+    expect(cityItems).toHaveLength(mockCities.length);
   });
 });
 

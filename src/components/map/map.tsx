@@ -4,6 +4,7 @@ import useMap from '../../hooks/use-map';
 import 'leaflet/dist/leaflet.css';
 import { Point } from '../../types/point';
 import { City } from '../../types/city';
+import './map.css';
 
 type MapProps = {
   city: City;
@@ -12,13 +13,13 @@ type MapProps = {
 };
 
 const defaultCustomIcon = new Icon({
-  iconUrl: 'img/pin.svg',
+  iconUrl: 'pin.svg',
   iconSize: [40, 40],
   iconAnchor: [20, 40]
 });
 
 const currentCustomIcon = new Icon({
-  iconUrl: 'img/pin-active.svg',
+  iconUrl: 'pin-active.svg',
   iconSize: [40, 40],
   iconAnchor: [20, 40]
 });
@@ -52,7 +53,11 @@ function Map(props: MapProps): JSX.Element {
     }
   }, [map, points, selectedPointId]);
 
-  return <section style={{width: '100%', height: '100%'}} ref={mapRef} data-testid='map'></section>;
+  return (
+    <div className="map">
+      <section style={{width: '100%', height: '100%'}} ref={mapRef} data-testid='map'></section>
+    </div>
+  );
 }
 
 export default Map;
