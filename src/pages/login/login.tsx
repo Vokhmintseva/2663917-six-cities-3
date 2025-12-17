@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate } from 'react-router-dom';
 import LoginForm from '../../components/login-form/login-form';
@@ -12,8 +13,10 @@ type LoginProps = {
 function Login({cities}: LoginProps): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const randomIndex = Math.floor(Math.random() * cities.length);
-  const randomCity = cities[randomIndex];
+  const randomCity = useMemo(() => {
+    const randomIndex = Math.floor(Math.random() * cities.length);
+    return cities[randomIndex];
+  }, []);
 
   const handleCityClick = (evt: React.MouseEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
