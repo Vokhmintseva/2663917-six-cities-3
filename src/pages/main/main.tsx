@@ -21,9 +21,13 @@ type MainProps = {
 
 function Main({cities}: MainProps): JSX.Element {
   const [activeOfferId, setActiveOfferId] = useState<string | undefined>(undefined);
+  const [hoveredOfferId, setHoveredOfferId] = useState<string | undefined>(undefined);
   const [sortType, setSortType] = useState<number | undefined>(SortType.Popular);
   const onActiveChange = useCallback((offerId: string | undefined) => {
     setActiveOfferId(offerId);
+  }, []);
+  const onMarkerHover = useCallback((offerId: string | undefined) => {
+    setHoveredOfferId(offerId);
   }, []);
   const onSortTypeChange = useCallback((newSortType: SortType) => {
     setSortType(newSortType);
@@ -69,10 +73,10 @@ function Main({cities}: MainProps): JSX.Element {
                   <h2 className="visually-hidden">Places</h2>
                   <b className="places__found">{offers.length} {offers.length === 1 ? 'place' : 'places'} to stay in {city.name}</b>
                   <SortOptions sortType={sortType} onSortTypeChange={onSortTypeChange} />
-                  <OffersList offers={sortedOffers} onActiveChange={onActiveChange} />
+                  <OffersList offers={sortedOffers} onActiveChange={onActiveChange} hoveredOfferId={hoveredOfferId} />
                 </section>
                 <div className="cities__right-section">
-                  <Map city={city} points={points} selectedPointId={activeOfferId} />
+                  <Map city={city} points={points} selectedPointId={activeOfferId} onMarkerHover={onMarkerHover} />
                 </div>
               </>
             )}
