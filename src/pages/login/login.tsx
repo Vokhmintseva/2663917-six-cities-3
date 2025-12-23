@@ -5,6 +5,7 @@ import LoginForm from '../../components/login-form/login-form';
 import { useAppDispatch } from '../../hooks';
 import { changeCity } from '../../store/app-process/app-process';
 import { City } from '../../types/city';
+import './login.css';
 
 type LoginProps = {
   cities: City[];
@@ -18,8 +19,7 @@ function Login({cities}: LoginProps): JSX.Element {
     return cities[randomIndex];
   }, []);
 
-  const handleCityClick = (evt: React.MouseEvent<HTMLAnchorElement>) => {
-    evt.preventDefault();
+  const handleCityClick = () => {
     dispatch(changeCity(randomCity.name));
     navigate('/');
   };
@@ -49,9 +49,9 @@ function Login({cities}: LoginProps): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#" onClick={handleCityClick}>
+              <div className="locations__item-link" onClick={handleCityClick}>
                 <span>{randomCity.name}</span>
-              </a>
+              </div>
             </div>
           </section>
         </div>
