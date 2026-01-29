@@ -24,18 +24,16 @@ function ReviewForm({offerId}: ReviewFormProps): JSX.Element {
 
   const saveComment = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    try {
-      await dispatch(saveCommentAction({
-        offerId: offerId,
-        comment: reviewFormData.review,
-        rating: Number(reviewFormData.rating)
-      })).unwrap();
+    const result = await dispatch(saveCommentAction({
+      offerId: offerId,
+      comment: reviewFormData.review,
+      rating: Number(reviewFormData.rating)
+    }));
+    if (saveCommentAction.fulfilled.match(result)) {
       setReviewFormData({
         rating: 0,
         review: ''
       });
-    } catch {
-      // Ошибка обработается через processErrorHandle в HTTP interceptor
     }
   };
 

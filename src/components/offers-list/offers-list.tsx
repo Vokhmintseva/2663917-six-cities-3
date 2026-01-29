@@ -7,9 +7,10 @@ type OffersListProps = {
   onActiveChange: (activeOfferId: string | undefined) => void;
   className?: string;
   cardVariant?: 'cities' | 'near-places';
+  hoveredOfferId?: string | undefined;
 }
 
-function OffersList({offers, onActiveChange, className, cardVariant = 'cities'}: OffersListProps): JSX.Element {
+function OffersList({offers, onActiveChange, className, cardVariant = 'cities', hoveredOfferId}: OffersListProps): JSX.Element {
   const [, setActiveOfferId] = useState<string | undefined>(undefined);
 
   const handleSetActive = useCallback((offerId: string) => {
@@ -33,6 +34,7 @@ function OffersList({offers, onActiveChange, className, cardVariant = 'cities'}:
           cardVariant={cardVariant}
           onSetActive={handleSetActive}
           onResetActive={handleResetActive}
+          isHovered={hoveredOfferId === offer.id}
         />))}
     </div>
   );
