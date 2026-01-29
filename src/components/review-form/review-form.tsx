@@ -3,13 +3,14 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { saveCommentAction } from '../../store/api-actions';
 import { getIsCommentSaving } from '../../store/offers-data/selectors';
 
+const MIN_REVIEW_LENGTH = 50;
+const MAX_REVIEW_LENGTH = 300;
+
 type ReviewFormProps = {
     offerId: string;
 }
 
 function ReviewForm({offerId}: ReviewFormProps): JSX.Element {
-  const minReviewLength = 50;
-  const maxReviewLength = 300;
   const [reviewFormData, setReviewFormData] = useState({
     rating: 0,
     review: ''
@@ -37,8 +38,8 @@ function ReviewForm({offerId}: ReviewFormProps): JSX.Element {
     }
   };
 
-  const isFormValid = reviewFormData.review.length >= minReviewLength
-    && reviewFormData.review.length <= maxReviewLength
+  const isFormValid = reviewFormData.review.length >= MIN_REVIEW_LENGTH
+    && reviewFormData.review.length <= MAX_REVIEW_LENGTH
     && reviewFormData.rating > 0;
   const isFormDisabled = isCommentSaving;
 
@@ -84,7 +85,7 @@ function ReviewForm({offerId}: ReviewFormProps): JSX.Element {
       <textarea className="reviews__textarea form__textarea" id="review" name="review" value={reviewFormData.review} placeholder="Tell how was your stay, what you like and what can be improved" onChange={handleReviewFormFieldChange} disabled={isFormDisabled} />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
-          To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">{minReviewLength} characters</b>.
+          To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">{MIN_REVIEW_LENGTH} characters</b>.
         </p>
         <button className="reviews__submit form__submit button" type="submit" disabled={!isFormValid || isFormDisabled}>Submit</button>
       </div>
