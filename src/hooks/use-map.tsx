@@ -29,6 +29,10 @@ function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: City): Map |
     } else if (map !== null) {
       map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
     }
+
+    return () => {
+        map?.remove();
+    };
   }, [map, mapRef, city]);
 
   return map;
