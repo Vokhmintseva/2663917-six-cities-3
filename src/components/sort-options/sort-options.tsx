@@ -11,7 +11,7 @@ const SORT_OPTIONS = [
   { id: SortType.PriceLowToHigh, label: 'Price: low to high' },
   { id: SortType.PriceHighToLow, label: 'Price: high to low' },
   { id: SortType.TopRated, label: 'Top rated first' }
-];
+] as const;
 
 function SortOptions({sortType, onSortTypeChange}: SortOptionsProps): JSX.Element | null {
   const [isOpen, setIsOpen] = useState<boolean>(false);
