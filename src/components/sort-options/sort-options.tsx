@@ -1,5 +1,5 @@
 import { useState, memo } from 'react';
-import { SortType } from '../../Const';
+import { SortType } from '../../const';
 
 type SortOptionsProps = {
   sortType: SortType | undefined;

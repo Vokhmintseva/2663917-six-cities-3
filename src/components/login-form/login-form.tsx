@@ -2,7 +2,7 @@ import {FormEvent, useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
 import {useNavigate} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus} from '../../Const';
+import {AppRoute, AuthorizationStatus} from '../../const';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 
 function LoginForm() {

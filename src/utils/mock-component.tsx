@@ -8,9 +8,9 @@ import thunk from 'redux-thunk';
 import { Action } from 'redux';
 import { Provider } from 'react-redux';
 import { AppThunkDispatch } from './mocks';
-import { ReactNode } from 'react';
+import { ReactElement } from 'react';
 
-export function withBrowserRouter(component: ReactNode) {
+export function withBrowserRouter(component: ReactElement) {
   return (
     <BrowserRouter>
       <HelmetProvider>
@@ -21,13 +21,13 @@ export function withBrowserRouter(component: ReactNode) {
 }
 
 type ComponentWithMockStore = {
-  withStoreComponent: ReactNode;
+  withStoreComponent: ReactElement;
   mockStore: MockStore;
   mockAxiosAdapter: MockAdapter;
 }
 
 export function withStore(
-  component: ReactNode,
+  component: ReactElement,
   initialState: Partial<State> = {},
 ): ComponentWithMockStore {
   const axios = createAPI();

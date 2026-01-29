@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../../Const';
+import {AppRoute} from '../../const';
 
 function AnonymousHeaderUserProfile() {
   return (

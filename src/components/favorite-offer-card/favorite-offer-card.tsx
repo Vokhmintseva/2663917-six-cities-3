@@ -4,7 +4,7 @@ import { Offer } from '../../types/offer';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeFavoriteOfferStatusAction } from '../../store/api-actions';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
-import { AuthorizationStatus, AppRoute } from '../../Const';
+import { AuthorizationStatus, AppRoute } from '../../const';
 
 type FavoriteOfferCardProps = {
     offer: Offer;

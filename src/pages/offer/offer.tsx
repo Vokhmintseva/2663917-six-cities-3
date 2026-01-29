@@ -10,7 +10,7 @@ import OffersList from '../../components/offers-list/offers-list';
 import {useEffect, useMemo} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {changeFavoriteOfferStatusAction, fetchOfferPageData} from '../../store/api-actions';
-import {AppRoute, AuthorizationStatus} from '../../Const';
+import {AppRoute, AuthorizationStatus} from '../../const';
 import {setResourceNotFound} from '../../store/offers-data/offers-data';
 import {getOfferPageData} from '../../store/offers-data/selectors';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';

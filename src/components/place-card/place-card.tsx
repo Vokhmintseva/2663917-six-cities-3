@@ -4,7 +4,7 @@ import RatingStarsWidthResolver from '../../utils/ratingStarsWidthResolver';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {changeFavoriteOfferStatusAction} from '../../store/api-actions';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
-import {AuthorizationStatus, AppRoute} from '../../Const';
+import {AuthorizationStatus, AppRoute} from '../../const';
 import {memo} from 'react';
 
 import './place-card.css';

@@ -2,7 +2,7 @@ import axios, {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state.js';
 import {Offer} from '../types/offer.js';
-import {APIRoute, TIMEOUT_SHOW_ERROR} from '../Const';
+import {APIRoute, TIMEOUT_SHOW_ERROR} from '../const';
 import {OfferDetailed} from '../types/offer-detailed';
 import {Comment} from '../types/comment';
 import {dropToken, saveToken} from '../services/token';
