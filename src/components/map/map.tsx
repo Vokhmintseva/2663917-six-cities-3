@@ -10,6 +10,7 @@ type MapProps = {
   city: City;
   points: Point[];
   selectedPointId: string | undefined;
+  onMarkerHover?: (pointId: string | undefined) => void;
 };
 
 const defaultCustomIcon = new Icon({
@@ -25,7 +26,7 @@ const currentCustomIcon = new Icon({
 });
 
 function Map(props: MapProps): JSX.Element {
-  const {city, points, selectedPointId} = props;
+  const {city, points, selectedPointId, onMarkerHover} = props;
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -45,13 +46,22 @@ function Map(props: MapProps): JSX.Element {
               : defaultCustomIcon
           )
           .addTo(markerLayer);
+
+        if (onMarkerHover) {
+          marker.on('mouseover', () => {
+            onMarkerHover(point.id);
+          });
+          marker.on('mouseout', () => {
+            onMarkerHover(undefined);
+          });
+        }
       });
 
       return () => {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, points, selectedPointId]);
+  }, [map, points, selectedPointId, onMarkerHover]);
 
   return (
     <div className="map">
