@@ -9,7 +9,7 @@ import {Point} from '../../types/point';
 import OffersList from '../../components/offers-list/offers-list';
 import {useEffect, useMemo} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {changeFavoriteOfferStatusAction, fetchCommentsAction, fetchOfferAction, fetchOffersNearbyAction} from '../../store/api-actions';
+import {changeFavoriteOfferStatusAction, fetchOfferPageData} from '../../store/api-actions';
 import {AppRoute, AuthorizationStatus} from '../../Const';
 import {setResourceNotFound} from '../../store/offers-data/offers-data';
 import {getOfferPageData} from '../../store/offers-data/selectors';
@@ -43,9 +43,7 @@ function Offer(): JSX.Element | null {
     let isMounted = true;
 
     if (id && isMounted) {
-      dispatch(fetchOfferAction(id));
-      dispatch(fetchOffersNearbyAction(id));
-      dispatch(fetchCommentsAction(id));
+      dispatch(fetchOfferPageData(id));
     }
 
     return () => {

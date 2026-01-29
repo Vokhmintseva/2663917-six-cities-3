@@ -68,6 +68,21 @@ export const fetchCommentsAction = createAsyncThunk<Comment[], string, {
   },
 );
 
+export const fetchOfferPageData = createAsyncThunk<void, string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'fetchOfferPageData',
+  async (offerId, {dispatch}) => {
+    await Promise.all([
+      dispatch(fetchOfferAction(offerId)),
+      dispatch(fetchOffersNearbyAction(offerId)),
+      dispatch(fetchCommentsAction(offerId))
+    ]);
+  },
+);
+
 export const fetchFavoritesAction = createAsyncThunk<Offer[], undefined, {
   dispatch: AppDispatch;
   state: State;
