@@ -10,7 +10,7 @@ type ReviewFormProps = {
     offerId: string;
 }
 
-function ReviewForm({offerId}: ReviewFormProps): JSX.Element {
+function ReviewForm({offerId}: ReviewFormProps) {
   const [reviewFormData, setReviewFormData] = useState({
     rating: 0,
     review: ''

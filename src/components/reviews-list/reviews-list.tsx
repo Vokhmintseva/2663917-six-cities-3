@@ -8,7 +8,7 @@ type ReviewsListProps = {
     comments: Comment[];
 }
 
-function ReviewsList({comments}: ReviewsListProps): JSX.Element {
+function ReviewsList({comments}: ReviewsListProps) {
   const sortedAndLimitedComments = useMemo(() => {
     const sorted = [...comments].sort((a, b) => {
       const dateA = new Date(a.date).getTime();

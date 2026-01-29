@@ -11,7 +11,7 @@ type AuthorizedHeaderUserProfileProps = {
   userEmail: string;
 }
 
-function AuthorizedHeaderUserProfile({userAvatarUrl, userEmail}: AuthorizedHeaderUserProfileProps): JSX.Element {
+function AuthorizedHeaderUserProfile({userAvatarUrl, userEmail}: AuthorizedHeaderUserProfileProps) {
   const dispatch = useAppDispatch();
   const favoriteOffers: Offer[] = useAppSelector(getFavorites);
 

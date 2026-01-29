@@ -19,7 +19,7 @@ type MainProps = {
     cities: City[];
 }
 
-function Main({cities}: MainProps): JSX.Element {
+function Main({cities}: MainProps) {
   const [activeOfferId, setActiveOfferId] = useState<string | undefined>(undefined);
   const [hoveredOfferId, setHoveredOfferId] = useState<string | undefined>(undefined);
   const [sortType, setSortType] = useState<number | undefined>(SortType.Popular);

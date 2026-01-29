@@ -20,7 +20,7 @@ import RatingStarsWidthResolver from '../../utils/ratingStarsWidthResolver';
 const MAX_OFFER_IMAGES = 6;
 const MAX_NEARBY_OFFERS = 3;
 
-function Offer(): JSX.Element | null {
+function Offer() {
   const { id } = useParams();
   const dispatch = useAppDispatch();
   const {offerDetailed, isOfferNotFound, offersNearby, comments} = useAppSelector(getOfferPageData);

@@ -10,7 +10,7 @@ type FavoriteOfferCardProps = {
     offer: Offer;
 }
 
-function FavoriteOfferCard({offer}: FavoriteOfferCardProps): JSX.Element {
+function FavoriteOfferCard({offer}: FavoriteOfferCardProps) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);

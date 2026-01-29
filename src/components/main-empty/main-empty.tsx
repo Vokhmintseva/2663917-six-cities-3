@@ -2,7 +2,7 @@ type MainEmptyProps = {
   currentCityName: string;
 }
 
-function MainEmpty({currentCityName}: MainEmptyProps): JSX.Element {
+function MainEmpty({currentCityName}: MainEmptyProps) {
   return (
     <>
       <section className="cities__no-places">

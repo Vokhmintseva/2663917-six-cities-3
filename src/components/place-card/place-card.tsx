@@ -17,7 +17,7 @@ type PlaceCardProps = {
   isHovered?: boolean;
 }
 
-function PlaceCard({offer, onSetActive, onResetActive, cardVariant = 'cities', isHovered = false}: PlaceCardProps): JSX.Element {
+function PlaceCard({offer, onSetActive, onResetActive, cardVariant = 'cities', isHovered = false}: PlaceCardProps) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);

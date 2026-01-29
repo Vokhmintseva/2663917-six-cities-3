@@ -16,7 +16,7 @@ type AppProps = {
   cities: City[];
 }
 
-function App({cities}: AppProps): JSX.Element {
+function App({cities}: AppProps) {
   const {isDataLoading} = useAppSelector(getAppState);
 
   if (isDataLoading) {

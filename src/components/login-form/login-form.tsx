@@ -5,7 +5,7 @@ import {useNavigate} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../Const';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 
-function LoginForm(): JSX.Element {
+function LoginForm() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);

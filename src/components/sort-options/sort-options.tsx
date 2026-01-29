@@ -13,7 +13,7 @@ const SORT_OPTIONS = [
   { id: SortType.TopRated, label: 'Top rated first' }
 ] as const;
 
-function SortOptions({sortType, onSortTypeChange}: SortOptionsProps): JSX.Element | null {
+function SortOptions({sortType, onSortTypeChange}: SortOptionsProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleSortChange = (newSortType: SortType) => {
