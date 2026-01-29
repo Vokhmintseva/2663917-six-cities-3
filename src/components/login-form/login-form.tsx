@@ -11,9 +11,15 @@ function LoginForm(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   useEffect(() => {
-    if (authorizationStatus === AuthorizationStatus.Auth) {
+    let isMounted = true;
+
+    if (authorizationStatus === AuthorizationStatus.Auth && isMounted) {
       navigate(AppRoute.Main);
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [authorizationStatus, navigate]);
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {

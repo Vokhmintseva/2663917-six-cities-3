@@ -28,17 +28,29 @@ function Offer(): JSX.Element | null {
   const navigate = useNavigate();
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
   useEffect(() => {
-    if (isOfferNotFound) {
+    let isMounted = true;
+
+    if (isOfferNotFound && isMounted) {
       navigate(AppRoute.NotFound);
       dispatch(setResourceNotFound(false));
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [isOfferNotFound, navigate, dispatch]);
   useEffect(() => {
-    if (id) {
+    let isMounted = true;
+
+    if (id && isMounted) {
       dispatch(fetchOfferAction(id));
       dispatch(fetchOffersNearbyAction(id));
       dispatch(fetchCommentsAction(id));
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [dispatch, id]);
 
   const points: Point[] = useMemo(() => {
