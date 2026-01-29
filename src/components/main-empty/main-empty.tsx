@@ -11,9 +11,7 @@ function MainEmpty({currentCityName}: MainEmptyProps): JSX.Element {
           <p className="cities__status-description">We could not find any property available at the moment in {currentCityName}</p>
         </div>
       </section>
-      <div className="cities__right-section">
-        <div className="cities__map-container" />
-      </div>
+      <div className="cities__right-section"></div>
     </>
   );
 }
