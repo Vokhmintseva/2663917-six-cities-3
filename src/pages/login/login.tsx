@@ -17,7 +17,7 @@ function Login({cities}: LoginProps) {
   const randomCity = useMemo(() => {
     const randomIndex = Math.floor(Math.random() * cities.length);
     return cities[randomIndex];
-  }, []);
+  }, [cities]);
 
   const handleCityClick = () => {
     dispatch(changeCity(randomCity.name));
