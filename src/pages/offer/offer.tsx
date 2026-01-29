@@ -125,10 +125,10 @@ function Offer(): JSX.Element | null {
                   {offerDetailed.type}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
-                  {offerDetailed.bedrooms} Bedrooms
+                  {offerDetailed.bedrooms} {offerDetailed.bedrooms === 1 ? 'Bedroom' : 'Bedrooms'}
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                  Max {offerDetailed.maxAdults} adults
+                  Max {offerDetailed.maxAdults} {offerDetailed.maxAdults === 1 ? 'adult' : 'adults'}
                 </li>
               </ul>
               <div className="offer__price">
