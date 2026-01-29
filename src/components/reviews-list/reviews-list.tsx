@@ -2,6 +2,8 @@ import { Comment } from '../../types/comment';
 import Review from '../review/review';
 import { useMemo } from 'react';
 
+const MAX_REVIEWS = 10;
+
 type ReviewsListProps = {
     comments: Comment[];
 }
@@ -13,7 +15,7 @@ function ReviewsList({comments}: ReviewsListProps): JSX.Element {
       const dateB = new Date(b.date).getTime();
       return dateB - dateA; // От новых к старым
     });
-    return sorted.slice(0, 10);
+    return sorted.slice(0, MAX_REVIEWS);
   }, [comments]);
 
   return (

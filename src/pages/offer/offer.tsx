@@ -17,6 +17,9 @@ import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import HeaderUserProfile from '../../components/header-user-profile/header-user-profile';
 import RatingStarsWidthResolver from '../../utils/ratingStarsWidthResolver';
 
+const MAX_OFFER_IMAGES = 6;
+const MAX_NEARBY_OFFERS = 3;
+
 function Offer(): JSX.Element | null {
   const { id } = useParams();
   const dispatch = useAppDispatch();
@@ -40,9 +43,9 @@ function Offer(): JSX.Element | null {
 
   const points: Point[] = useMemo(() => {
     if (!offerDetailed) {
-      return convertToPoints(offersNearby.slice(0, 3));
+      return convertToPoints(offersNearby.slice(0, MAX_NEARBY_OFFERS));
     }
-    const nearbyPoints = convertToPoints(offersNearby.slice(0, 3));
+    const nearbyPoints = convertToPoints(offersNearby.slice(0, MAX_NEARBY_OFFERS));
     const currentPoint: Point = {
       id: offerDetailed.id,
       latitude: offerDetailed.location.latitude,
@@ -88,7 +91,7 @@ function Offer(): JSX.Element | null {
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {offerDetailed.images.slice(0, 6).map((img) => (
+              {offerDetailed.images.slice(0, MAX_OFFER_IMAGES).map((img) => (
                 <div className="offer__image-wrapper" key={img}>
                   <img className="offer__image" src={img} alt="Photo studio" />
                 </div>
@@ -181,7 +184,7 @@ function Offer(): JSX.Element | null {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <OffersList
-              offers={offersNearby.slice(0, 3)}
+              offers={offersNearby.slice(0, MAX_NEARBY_OFFERS)}
               onActiveChange={() => {}}
               className="near-places__list places__list"
               cardVariant="near-places"
